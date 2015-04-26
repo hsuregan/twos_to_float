@@ -4,15 +4,15 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   16:53:05 04/22/2015
-// Design Name:   extractor
-// Module Name:   C:/Users/152/Desktop/Regan/Lab2/extractor_tb.v
+// Create Date:   08:48:08 04/27/2015
+// Design Name:   converter
+// Module Name:   C:/Users/Alex/Documents/CSM152A/Lab2/converter_tb.v
 // Project Name:  Lab2
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: extractor
+// Verilog Test Fixture created by ISE for module: converter
 //
 // Dependencies:
 // 
@@ -22,32 +22,33 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module extractor_tb;
+module converter_tb;
 
 	// Inputs
-	reg [10:0] X;
+	reg [11:0] D;
 
 	// Outputs
-	wire [2:0] exponent;
-	wire [3:0] significand;
-	wire fifth;
+	wire S;
+	wire [10:0] X;
 
 	// Instantiate the Unit Under Test (UUT)
-	extractor uut (
-		.X(X), 
-		.exponent(exponent), 
-		.significand(significand), 
-		.fifth(fifth)
+	converter uut (
+		.D(D), 
+		.S(S), 
+		.X(X)
 	);
 
 	initial begin
 		// Initialize Inputs
-		X = 0;
+		D = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
-      X=11'b00000011101;
 		
+		D = 12'b001111111111;
+		#50;
+		D = 12'b111111110001;
+        
 		// Add stimulus here
 
 	end

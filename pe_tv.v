@@ -4,15 +4,15 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   16:53:05 04/22/2015
-// Design Name:   extractor
-// Module Name:   C:/Users/152/Desktop/Regan/Lab2/extractor_tb.v
+// Create Date:   09:00:01 04/27/2015
+// Design Name:   priority_encoder
+// Module Name:   C:/Users/Alex/Documents/CSM152A/Lab2/pe_tv.v
 // Project Name:  Lab2
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: extractor
+// Verilog Test Fixture created by ISE for module: priority_encoder
 //
 // Dependencies:
 // 
@@ -22,32 +22,29 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module extractor_tb;
+module pe_tv;
 
 	// Inputs
-	reg [10:0] X;
+	reg [10:0] in;
 
 	// Outputs
-	wire [2:0] exponent;
-	wire [3:0] significand;
-	wire fifth;
+	wire [3:0] out;
 
 	// Instantiate the Unit Under Test (UUT)
-	extractor uut (
-		.X(X), 
-		.exponent(exponent), 
-		.significand(significand), 
-		.fifth(fifth)
+	priority_encoder uut (
+		.in(in), 
+		.out(out)
 	);
 
 	initial begin
 		// Initialize Inputs
-		X = 0;
+		in = 0;
 
 		// Wait 100 ns for global reset to finish
 		#100;
-      X=11'b00000011101;
+		in=11'b00000001100;
 		
+        
 		// Add stimulus here
 
 	end

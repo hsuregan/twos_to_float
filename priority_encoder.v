@@ -20,9 +20,9 @@
 //////////////////////////////////////////////////////////////////////////////////
 module priority_encoder(
     input [10:0] in,
-    output [2:0] out
+    output [3:0] out
     );
-	reg [2:0] output1;
+	reg [3:0] output1;
 	assign out = output1;
 	
 	always @(*)

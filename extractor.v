@@ -25,13 +25,14 @@ module extractor(
     output fifth
     );
 
-wire [2:0] nZeroes;
-reg [2:0] nZeroesReg;
+wire [3:0] nZeroes;
+reg [3:0] nZeroesReg;
 reg [2:0] exp;
 reg [3:0] sigout;
+reg fifthbit;
 assign significand = sigout;
 assign exponent = exp;
-assign fifth = X[7-nZeroesReg];
+assign fifth = fifthbit;
 priority_encoder UUT(.in(X), .out(nZeroes));
 
 integer i;
@@ -50,24 +51,42 @@ always @(*) begin
 	$display(exp);
 	check = 0;
 	count = 3;
-	for(i = 11-nZeroesReg; (i >= (7-nZeroesReg))&&(i >= 0) ; i = i -1)
+	if(nZeroesReg < 8)
 	begin
-		if(X[i] == 0) begin
-			
-			check = 1;
-		end
-		if(count >=0)
+		fifthbit = X[7-nZeroesReg];
+		for(i = 11-nZeroesReg; (i >= (7-nZeroesReg))&&(i >= 0) ; i = i -1)
 		begin
-			sigout[count] = X[i];
-			count = count -1;
-		end;
+			if(X[i] == 0) begin
+				
+				check = 1;
+			end
+			if(count >=0)
+			begin
+				sigout[count] = X[i];
+				count = count -1;
+			end
+		end
+		if(check == 0)
+		begin
+			$display("all five bits are 1s");
+			exp = exp + 1;
+			sigout = 7;
+		end
 	end
-	if(check == 0)
+	
+	else //nZeroesReg = 8
 	begin
-		$display("all five bits are 1s");
-		exp = exp + 1;
-		sigout = 7;
+	fifthbit = 0;
+		for(i = 11-nZeroesReg; (i >= (8-nZeroesReg))&&(i >= 0) ; i = i -1)
+		begin
+			if(count >=0)
+			begin
+				sigout[count] = X[i];
+				count = count -1;
+			end
+		end
 	end
+	
 	//if(X[11-nZeroesReg:7-nZeroesReg] == 31)
 		//$display("hello");
 	//if(X[11-nZeroesReg:7-nZeroesReg] == 5'b11111)

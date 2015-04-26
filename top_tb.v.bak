@@ -42,7 +42,7 @@ module top_tb;
 	);
 
 always begin
-	#0.5 clk = ~clk;
+	#1 clk = ~clk;
 end
 
 
